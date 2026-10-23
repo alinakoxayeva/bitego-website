@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router";
 
 export default function AdminLayout() {
   return (
-    <div>
+    <div className="flex">
       <aside>
         <p>Admin Panel</p>
         <nav>

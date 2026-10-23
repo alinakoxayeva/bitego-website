@@ -1,3 +1,3 @@
 export default function Register() {
-  return <h1 className="text-2xl font-bold">Register</h1>
+  return <h1 className="text-2xl font-bold]">Qeydiyyat</h1>
 }
