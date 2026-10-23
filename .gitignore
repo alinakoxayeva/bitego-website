@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 .env
 .env.*
+/server/.env
 !.env.example
-server/generated
+server/src/generated
