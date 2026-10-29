@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useGetMeQuery } from "src/features/auth/authApi";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useGetMeQuery } from "./authApi";
 import { logout } from "./authSlice";
 
 export function useAuthStatus() {

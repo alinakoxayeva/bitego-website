@@ -11,7 +11,11 @@ export default function ProductDetail() {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
 
-  const { data: product, isLoading, isError } = useGetProductByIdQuery(id ?? "", {
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useGetProductByIdQuery(id ?? "", {
     skip: !id,
   });
 
@@ -59,7 +63,9 @@ export default function ProductDetail() {
         <p className="mt-3 text-sm text-gray-500">{product.category.name}</p>
         <h1 className="text-3xl font-bold">{product.name}</h1>
         <p className="mt-2 text-gray-700">{product.description}</p>
-        <p className="mt-4 text-2xl font-bold text-orange-600">{formatPrice(product.price)}</p>
+        <p className="mt-4 text-2xl font-bold text-orange-600">
+          {formatPrice(product.price)}
+        </p>
 
         {product.isAvailable ? (
           <div className="mt-6 flex items-center gap-4">

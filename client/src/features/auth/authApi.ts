@@ -1,4 +1,4 @@
-import { baseApi } from "src/app/api/baseApi";
+import { baseApi } from "@/app/api/baseApi";
 import type { User } from "./authSlice";
 
 interface AuthResponse {
