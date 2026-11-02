@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 export interface CartItem {
   productId: string;
   name: string;
-  price: number; // yalnız göstərmək üçün, əsl qiyməti server hesablayır
+  price: number;
   imageUrl: string;
   quantity: number;
 }
@@ -29,7 +29,10 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<Omit<CartItem, "quantity"> & { quantity?: number }>) {
+    addItem(
+      state,
+      action: PayloadAction<Omit<CartItem, "quantity"> & { quantity?: number }>,
+    ) {
       const { quantity = 1, ...item } = action.payload;
       const existing = state.items.find((i) => i.productId === item.productId);
       if (existing) existing.quantity += quantity;
@@ -56,5 +59,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem, increment, decrement, removeItem, clearCart } = cartSlice.actions;
+export const { addItem, increment, decrement, removeItem, clearCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
