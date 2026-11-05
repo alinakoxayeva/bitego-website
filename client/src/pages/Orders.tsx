@@ -4,14 +4,8 @@ import StatusBadge from "@/components/common/StatusBadge";
 import { formatDate, formatPrice } from "@/lib/format";
 
 export default function Orders() {
-  const {
-    data: orders,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useGetMyOrdersQuery();
-  console.log("orders error:", error);
+  const { data: orders, isLoading, isError, refetch } = useGetMyOrdersQuery();
+
   if (isLoading) {
     return (
       <div className="space-y-3">
@@ -37,10 +31,7 @@ export default function Orders() {
     return (
       <div className="py-16 text-center">
         <h1 className="text-2xl font-bold">Hələ sifarişiniz yoxdur</h1>
-        <Link
-          to="/menu"
-          className="mt-4 inline-block rounded-md bg-orange-500 px-4 py-2 text-white"
-        >
+        <Link to="/menu" className="mt-4 inline-block rounded-md bg-orange-500 px-4 py-2 text-white">
           Menyuya keç
         </Link>
       </div>

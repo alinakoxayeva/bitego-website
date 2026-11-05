@@ -5,6 +5,7 @@ import authRouter from "./modules/auth/auth.routes.js";
 import catalogRouter from "./modules/catalog/catalog.routes.js";
 import { errorHandler } from "./middleware/error.js";
 import ordersRouter from "./modules/orders/orders.routes.js";
+import adminRouter from "./modules/admin/admin.routes.js";
 
 const app = express();
 
@@ -33,7 +34,7 @@ app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.use("/api/auth", authRouter);
 app.use("/api", catalogRouter);
 app.use("/api/orders", ordersRouter);
-
+app.use("/api/admin", adminRouter);
 app.use(errorHandler);
 
 export default app;

@@ -17,6 +17,7 @@ export const STATUS_COLORS: Record<OrderStatus, string> = {
   DELIVERED: "bg-green-100 text-green-800",
   CANCELLED: "bg-red-100 text-red-800",
 };
+
 export const STATUS_STEPS: OrderStatus[] = [
   "PENDING",
   "CONFIRMED",
@@ -27,3 +28,4 @@ export const STATUS_STEPS: OrderStatus[] = [
 
 export const isFinalStatus = (s: OrderStatus) =>
   s === "DELIVERED" || s === "CANCELLED";
+

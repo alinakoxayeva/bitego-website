@@ -15,22 +15,18 @@ export default function OrderDetail() {
   const { id } = useParams();
   const [pollingInterval, setPollingInterval] = useState(15000);
 
-  const {
-    data: order,
-    isLoading,
-    isError,
-  } = useGetOrderByIdQuery(id ?? "", {
+  const { data: order, isLoading, isError } = useGetOrderByIdQuery(id ?? "", {
     skip: !id,
     pollingInterval,
   });
   const [cancelOrder, { isLoading: isCancelling }] = useCancelOrderMutation();
 
+  // Sifariş son statusa çatanda artıq sorğu göndərmirik
   useEffect(() => {
     if (order && isFinalStatus(order.status)) setPollingInterval(0);
   }, [order]);
 
-  if (isLoading)
-    return <div className="h-60 animate-pulse rounded-xl bg-gray-200" />;
+  if (isLoading) return <div className="h-60 animate-pulse rounded-xl bg-gray-200" />;
 
   if (isError || !order) {
     return (
@@ -71,9 +67,7 @@ export default function OrderDetail() {
       <section className="rounded-xl border bg-white p-4">
         <OrderTimeline status={order.status} />
         {order.status === "CANCELLED" && order.cancelReason && (
-          <p className="mt-3 text-sm text-gray-600">
-            Səbəb: {order.cancelReason}
-          </p>
+          <p className="mt-3 text-sm text-gray-600">Səbəb: {order.cancelReason}</p>
         )}
       </section>
 

@@ -35,6 +35,7 @@ export const router = createBrowserRouter([
           { path: "order-success/:id", element: <OrderSuccess /> },
           { path: "orders", element: <Orders /> },
           { path: "orders/:id", element: <OrderDetail /> },
+
           { path: "orders", element: <Orders /> },
           { path: "orders/:id", element: <OrderDetail /> },
         ],
@@ -53,3 +54,5 @@ export const router = createBrowserRouter([
   },
   { path: "*", element: <NotFound /> },
 ]);
+
+//conflict baş vermişdi onlara bax claudedən. başdan kodları dəyişmək lazımdı yoxsa sadəcə ordakı sətirləri kifayət edirmi onları aydınlaşdır.
