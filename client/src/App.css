@@ -1,0 +1,15 @@
+:root {
+  --fire-red: #D9381E;       /* Əsas vurğu rəngi / Cəlbədici qırmızı */
+  --vanilla-cream: #F5EBE6;  /* Arxa fon / Zərif krem rəngi */
+  --retro-green: #2D5A27;    /* Footer / Təbiət və yaşıl aksentlər */
+  --saffron: #F4A261;        /* Düymə və vurğular */
+  --russet: #4A2810;         /* Mətn rəngi */
+  --white: #FFFFFF;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #FAFAFA;
+  color: var(--russet);
+}

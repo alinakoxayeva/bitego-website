@@ -13,8 +13,8 @@ const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
   .split(",")
   .map((s) => s.trim().replace(/\/$/, ""));
 
-// Dev-də istənilən localhost portuna icazə (Vite 5173 məşğul olsa 5174 açır)
-const isLocalhost = (origin: string) => /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
+const isLocalhost = (origin: string) =>
+  /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
 
 app.use(
   cors({

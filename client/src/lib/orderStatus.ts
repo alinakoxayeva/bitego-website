@@ -18,7 +18,6 @@ export const STATUS_COLORS: Record<OrderStatus, string> = {
   CANCELLED: "bg-red-100 text-red-800",
 };
 
-// Ləğv xaric, sifarişin keçdiyi addımlar ardıcıllıqla
 export const STATUS_STEPS: OrderStatus[] = [
   "PENDING",
   "CONFIRMED",
@@ -27,4 +26,6 @@ export const STATUS_STEPS: OrderStatus[] = [
   "DELIVERED",
 ];
 
-export const isFinalStatus = (s: OrderStatus) => s === "DELIVERED" || s === "CANCELLED";
+export const isFinalStatus = (s: OrderStatus) =>
+  s === "DELIVERED" || s === "CANCELLED";
+
