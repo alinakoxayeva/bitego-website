@@ -18,6 +18,8 @@ import Orders from "@/pages/Orders";
 import OrderDetail from "@/pages/OrderDetail";
 import AdminOrders from "@/pages/admin/AdminOrders";
 import AdminOrderDetail from "@/pages/admin/AdminOrderDetail";
+import AdminProducts from "@/pages/admin/AdminProducts";
+import AdminProductForm from "@/pages/admin/AdminProductForm";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +55,9 @@ export const router = createBrowserRouter([
           { index: true, element: <AdminDashboard /> },
           { path: "orders", element: <AdminOrders /> },
           { path: "orders/:id", element: <AdminOrderDetail /> },
+          { path: "products", element: <AdminProducts /> },
+          { path: "products/new", element: <AdminProductForm /> },
+          { path: "products/:id/edit", element: <AdminProductForm /> },
         ],
       },
     ],
