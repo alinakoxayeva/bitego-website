@@ -70,6 +70,9 @@ export const adminApi = baseApi.injectEndpoints({
         { type: "Product", id },
         { type: "Product", id: "LIST" },
         { type: "Category", id: "LIST" },
+        { type: "Order", id },
+        { type: "Order", id: "LIST" },
+        { type: "Stats", id: "LIST" },
       ],
     }),
     toggleProductAvailability: build.mutation<
