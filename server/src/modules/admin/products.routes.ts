@@ -50,6 +50,14 @@ router.get("/", async (req, res) => {
     totalPages: Math.max(1, Math.ceil(total / q.limit)),
   });
 });
+router.get("/:id", async (req, res) => {
+  const product = await prisma.product.findUnique({
+    where: { id: req.params.id },
+    include: { category: { select: { id: true, name: true, slug: true } } },
+  });
+  if (!product) return res.status(404).json({ message: "Məhsul tapılmadı" });
+  res.json(product);
+});
 
 router.post("/", async (req, res) => {
   const data = productSchema.parse(req.body);
