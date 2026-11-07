@@ -63,3 +63,32 @@ export interface ProductFormBody {
   isAvailable: boolean;
   isFeatured: boolean;
 }
+
+// Kateqoriya formu
+export interface CategoryFormBody {
+  name: string;
+  imageUrl?: string;
+  sortOrder?: number;
+  isActive?: boolean;
+}
+
+// İstifadəçilər
+export type UserRole = "USER" | "ADMIN";
+
+export interface AdminUser {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  role: UserRole;
+  isBlocked: boolean;
+  createdAt: string;
+  _count: { orders: number };
+}
+
+export interface AdminUsersQuery {
+  search?: string;
+  role?: UserRole;
+  page?: number;
+  limit?: number;
+}
