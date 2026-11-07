@@ -51,12 +51,12 @@ export default function Menu() {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           placeholder="Yemək axtar..."
-          className="w-full rounded-md border px-3 py-2 sm:max-w-xs"
+          className="w-full rounded-lg border px-3 py-2 sm:max-w-xs text-[#76413D]"
         />
         <select
           value={sort}
           onChange={(e) => update({ sort: e.target.value, page: "" })}
-          className="rounded-md border px-3 py-2"
+          className="rounded-lg border px-3 py-2 text-[#76413D]"
         >
           <option value="newest">Ən yenilər</option>
           <option value="price_asc">Qiymət: ucuzdan bahaya</option>
@@ -65,10 +65,10 @@ export default function Menu() {
         </select>
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="mb-6 flex flex-wrap gap-2 text-[#76413D]">
         <button
           onClick={() => update({ category: "", page: "" })}
-          className={`rounded-full border px-3 py-1 text-sm ${!category ? "bg-orange-500 text-white" : ""}`}
+          className={`rounded-full border px-3 py-1 text-sm ${!category ? "bg-[#E4281F] text-[#FCEEC9]" : ""}`}
         >
           Hamısı
         </button>
@@ -76,7 +76,7 @@ export default function Menu() {
           <button
             key={c.id}
             onClick={() => update({ category: c.slug, page: "" })}
-            className={`rounded-full border px-3 py-1 text-sm ${category === c.slug ? "bg-orange-500 text-white" : ""}`}
+            className={`rounded-full border px-3 py-1 text-sm ${category === c.slug ? "bg-[#E4281F] text-[#FCEEC9]" : ""}`}
           >
             {c.name}
           </button>
