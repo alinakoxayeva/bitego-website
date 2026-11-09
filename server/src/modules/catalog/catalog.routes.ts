@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import type { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../config/prisma.js";
 
 const router = Router();
@@ -7,6 +8,7 @@ const router = Router();
 const querySchema = z.object({
   search: z.string().trim().optional(),
   category: z.string().optional(), // kateqoriyanın slug-ı
+  featured: z.enum(["true"]).optional(), // ana səhifə üçün seçilmiş məhsullar
   sort: z.enum(["newest", "price_asc", "price_desc", "name"]).default("newest"),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(12),
@@ -30,9 +32,10 @@ router.get("/categories", async (_req, res) => {
 router.get("/products", async (req, res) => {
   const q = querySchema.parse(req.query);
 
-  const where = {
+  const where: Prisma.ProductWhereInput = {
     category: { isActive: true, ...(q.category ? { slug: q.category } : {}) },
-    ...(q.search ? { name: { contains: q.search, mode: "insensitive" as const } } : {}),
+    ...(q.search ? { name: { contains: q.search, mode: "insensitive" } } : {}),
+    ...(q.featured === "true" ? { isFeatured: true } : {}),
   };
 
   const [total, items] = await Promise.all([

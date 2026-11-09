@@ -27,7 +27,9 @@ export interface ProductsResponse {
 export interface ProductsQuery {
   search?: string;
   category?: string;
+  featured?: boolean;
   sort?: string;
   page?: number;
   limit?: number;
 }
+
