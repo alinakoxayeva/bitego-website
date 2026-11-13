@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
+import { ArrowLeft, Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { useAppDispatch } from "@/app/hooks";
 import { useGetProductByIdQuery } from "@/features/products/productsApi";
@@ -20,14 +21,23 @@ export default function ProductDetail() {
   });
 
   if (isLoading) {
-    return <div className="h-80 animate-pulse rounded-xl bg-gray-200" />;
+    return (
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 md:grid-cols-2">
+        <div className="aspect-4/3 animate-pulse rounded-3xl bg-cream" />
+        <div className="space-y-4">
+          <div className="h-4 w-24 animate-pulse rounded bg-cream" />
+          <div className="h-10 w-2/3 animate-pulse rounded bg-cream" />
+          <div className="h-20 animate-pulse rounded bg-cream" />
+        </div>
+      </div>
+    );
   }
 
   if (isError || !product) {
     return (
-      <div className="py-12 text-center">
-        <p className="text-gray-600">Məhsul tapılmadı.</p>
-        <Link to="/menu" className="mt-2 inline-block underline">
+      <div className="py-20 text-center text-russet">
+        <p>Məhsul tapılmadı.</p>
+        <Link to="/menu" className="mt-2 inline-block font-bold text-fire underline">
           Menyuya qayıt
         </Link>
       </div>
@@ -49,54 +59,74 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className="grid gap-8 md:grid-cols-2">
-      <img
-        src={product.imageUrl}
-        alt={product.name}
-        className="aspect-4/3 w-full rounded-xl object-cover"
-      />
+    <section className="mx-auto max-w-7xl px-6 py-10">
+      <Link
+        to="/menu"
+        className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-fire"
+      >
+        <ArrowLeft size={14} /> Menyuya qayıt
+      </Link>
 
-      <div>
-        <Link to="/menu" className="text-sm text-gray-500 underline">
-          ← Menyuya qayıt
-        </Link>
-        <p className="mt-3 text-sm text-gray-500">{product.category.name}</p>
-        <h1 className="text-3xl font-bold">{product.name}</h1>
-        <p className="mt-2 text-gray-700">{product.description}</p>
-        <p className="mt-4 text-2xl font-bold text-orange-600">
-          {formatPrice(product.price)}
-        </p>
+      <div className="grid items-start gap-10 md:grid-cols-2">
+        <div className="relative">
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className={`aspect-4/3 w-full rounded-3xl object-cover ${
+              !product.isAvailable ? "opacity-60 grayscale" : ""
+            }`}
+          />
+        </div>
 
-        {product.isAvailable ? (
-          <div className="mt-6 flex items-center gap-4">
-            <div className="flex items-center gap-3 rounded-md border px-2 py-1">
+        <div>
+          <span className="inline-block rounded-md bg-cream px-3 py-1 text-xs font-bold text-forest">
+            {product.category.name}
+          </span>
+          <h1 className="mt-4 font-display text-4xl leading-tight text-russet md:text-5xl">
+            {product.name}
+          </h1>
+          <p className="mt-4 max-w-md text-russet/80">{product.description}</p>
+          <p className="mt-6 font-display text-3xl text-russet">
+            {formatPrice(product.price)}
+          </p>
+
+          {product.isAvailable ? (
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-4 rounded-md bg-cream px-3 py-3">
+                <button
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="text-russet"
+                  aria-label="Azalt"
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="w-6 text-center font-bold text-russet">{quantity}</span>
+                <button
+                  onClick={() => setQuantity((q) => q + 1)}
+                  className="text-russet"
+                  aria-label="Artır"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
               <button
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="px-2 text-lg"
-                aria-label="Azalt"
+                onClick={handleAdd}
+                className="rounded-md bg-fire px-8 py-3 text-sm font-bold text-white transition hover:opacity-90"
               >
-                −
-              </button>
-              <span className="w-6 text-center">{quantity}</span>
-              <button
-                onClick={() => setQuantity((q) => q + 1)}
-                className="px-2 text-lg"
-                aria-label="Artır"
-              >
-                +
+                Səbətə at
               </button>
             </div>
-            <button
-              onClick={handleAdd}
-              className="rounded-md bg-orange-500 px-6 py-2 font-medium text-white"
-            >
-              Səbətə at
-            </button>
-          </div>
-        ) : (
-          <p className="mt-6 font-medium text-red-600">Hazırda mövcud deyil</p>
-        )}
+          ) : (
+            <p className="mt-8 rounded-md bg-russet/10 px-4 py-3 text-sm font-bold text-russet">
+              Hazırda mövcud deyil
+            </p>
+          )}
+
+          <p className="mt-8 text-xs text-russet/70">
+            Qida allergiyanız var? Sifarişdən əvvəl bizə bildirin.
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
