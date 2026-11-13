@@ -21,7 +21,7 @@ export default function Footer() {
 
         <div>
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-saffron">Come say hello</p>
-          <p className="text-sm">42 Orchard Street, New York</p>
+          <p className="text-sm">Baku, Azerbaijan</p>
           <p className="text-sm">Every day, 11 am – 10 pm</p>
           <p className="mt-4 text-sm">hello@savor.kitchen</p>
         </div>
