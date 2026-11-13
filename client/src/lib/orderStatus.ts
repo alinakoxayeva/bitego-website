@@ -11,11 +11,11 @@ export const STATUS_LABELS: Record<OrderStatus, string> = {
 
 export const STATUS_COLORS: Record<OrderStatus, string> = {
   PENDING: "bg-saffron/40 text-russet",
-  CONFIRMED: "bg-retro-green/15 text-retro-green",
-  PREPARING: "bg-saffron text-foreground",
+  CONFIRMED: "bg-forest/15 text-forest",
+  PREPARING: "bg-saffron text-russet",
   ON_THE_WAY: "bg-russet/15 text-russet",
-  DELIVERED: "bg-retro-green text-cream",
-  CANCELLED: "bg-primary/15 text-primary",
+  DELIVERED: "bg-forest text-cream",
+  CANCELLED: "bg-fire/15 text-fire",
 };
 
 export const STATUS_STEPS: OrderStatus[] = [

@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { useRegisterMutation } from "@/features/auth/authApi";
 import { setCredentials } from "@/features/auth/authSlice";
 import { getErrorMessage } from "@/lib/errors";
+import AuthPanel from "@/components/common/AuthPanel";
 
 const schema = z
   .object({
@@ -65,72 +66,87 @@ export default function Register() {
     }
   }
 
+    const inputClass =
+    "w-full rounded-lg border border-cream bg-paper px-3 py-2.5 text-russet outline-none focus:border-fire";
+
   return (
-    <div className="mx-auto mt-10 w-full max-w-sm rounded-2xl border bg-white p-6 shadow-sm">
-      <h1 className="text-2xl font-bold">Qeydiyyat</h1>
-      <p className="mb-6 mt-1 text-sm text-gray-500">Savor-da hesab yaradın</p>
+    <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-12 lg:grid-cols-2">
+      <AuthPanel
+        title="Gəlin, bir yerdə yeyək."
+        text="Hesab yaradın, sifarişlərinizi izləyin və sevimli yeməklərinizi tez tapın."
+      />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
-        {fields.map((f) => (
-          <div key={f.name}>
-            <label htmlFor={f.name} className="mb-1 block text-sm font-medium">
-              {f.label}
-            </label>
-            <input
-              id={f.name}
-              type={f.type}
-              autoComplete={f.autoComplete}
-              className="w-full rounded-md border px-3 py-2 outline-none focus:border-orange-500"
-              {...register(f.name)}
-            />
-            {errors[f.name] && (
-              <p className="mt-1 text-sm text-red-600">{errors[f.name]?.message}</p>
-            )}
-          </div>
-        ))}
+      <div className="mx-auto w-full max-w-md">
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-fire">
+          Savor ailəsinə qoşulun
+        </p>
+        <h1 className="font-display text-4xl text-russet md:text-5xl">Hesab yarat.</h1>
+        <p className="mb-8 mt-3 text-sm text-russet/80">Savor-da hesab yaradın</p>
 
-        {(["password", "confirmPassword"] as const).map((name) => (
-          <div key={name}>
-            <label htmlFor={name} className="mb-1 block text-sm font-medium">
-              {name === "password" ? "Şifrə" : "Şifrə təkrarı"}
-            </label>
-            <div className="relative">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+          {fields.map((f) => (
+            <div key={f.name}>
+              <label htmlFor={f.name} className="mb-1 block text-sm font-bold text-russet">
+                {f.label}
+              </label>
               <input
-                id={name}
-                type={showPassword ? "text" : "password"}
-                autoComplete="new-password"
-                className="w-full rounded-md border px-3 py-2 pr-20 outline-none focus:border-orange-500"
-                {...register(name)}
+                id={f.name}
+                type={f.type}
+                autoComplete={f.autoComplete}
+                className={inputClass}
+                {...register(f.name)}
               />
-              {name === "password" && (
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500"
-                >
-                  {showPassword ? "Gizlət" : "Göstər"}
-                </button>
+              {errors[f.name] && (
+                <p className="mt-1 text-sm text-fire">{errors[f.name]?.message}</p>
               )}
             </div>
-            {errors[name] && <p className="mt-1 text-sm text-red-600">{errors[name]?.message}</p>}
-          </div>
-        ))}
+          ))}
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full rounded-md bg-orange-500 py-2 font-medium text-white transition hover:bg-orange-600 disabled:opacity-50"
-        >
-          {isLoading ? "Gözləyin..." : "Qeydiyyatdan keç"}
-        </button>
-      </form>
+          {(["password", "confirmPassword"] as const).map((name) => (
+            <div key={name}>
+              <label htmlFor={name} className="mb-1 block text-sm font-bold text-russet">
+                {name === "password" ? "Şifrə" : "Şifrə təkrarı"}
+              </label>
+              <div className="relative">
+                <input
+                  id={name}
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="new-password"
+                  className={`${inputClass} pr-20`}
+                  {...register(name)}
+                />
+                {name === "password" && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-russet/70"
+                  >
+                    {showPassword ? "Gizlət" : "Göstər"}
+                  </button>
+                )}
+              </div>
+              {errors[name] && (
+                <p className="mt-1 text-sm text-fire">{errors[name]?.message}</p>
+              )}
+            </div>
+          ))}
 
-      <p className="mt-5 text-center text-sm text-gray-600">
-        Artıq hesabınız var?{" "}
-        <Link to="/login" className="font-medium text-orange-600 underline">
-          Daxil olun
-        </Link>
-      </p>
-    </div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full rounded-md bg-fire py-3 text-sm font-bold text-white transition hover:opacity-90 disabled:opacity-50"
+          >
+            {isLoading ? "Gözləyin..." : "Qeydiyyatdan keç →"}
+          </button>
+        </form>
+
+        <p className="mt-6 text-center text-sm text-russet">
+          Artıq hesabınız var?{" "}
+          <Link to="/login" className="font-bold text-fire underline">
+            Daxil olun
+          </Link>
+        </p>
+      </div>
+    </section>
   );
 }
