@@ -1,15 +1,27 @@
 :root {
-  --fire-red: #D9381E;       /* Əsas vurğu rəngi / Cəlbədici qırmızı */
-  --vanilla-cream: #F5EBE6;  /* Arxa fon / Zərif krem rəngi */
-  --retro-green: #2D5A27;    /* Footer / Təbiət və yaşıl aksentlər */
-  --saffron: #F4A261;        /* Düymə və vurğular */
-  --russet: #4A2810;         /* Mətn rəngi */
-  --white: #FFFFFF;
+  --radius: 0.75rem;
+  --background: #fcf7e6;
+  --foreground: #3b2420;
+  --card: #fffdf7;
+  --card-foreground: #3b2420;
+  --popover: #fffdf7;
+  --popover-foreground: #3b2420;
+  --primary: #d23d2d;
+  --primary-foreground: #ffffff;
+  --secondary: #f8eecb;
+  --secondary-foreground: #3b2420;
+  --muted: #f8eecb;
+  --muted-foreground: #6e433d;
+  --accent: #f8eecb;
+  --accent-foreground: #3b2420;
+  --destructive: #991b1b;
+  --border: #e8dcae;
+  --input: #e8dcae;
+  --ring: #d23d2d;
 }
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #FAFAFA;
-  color: var(--russet);
+@layer base {
+  html {
+    font-family: "Inter Variable", system-ui, sans-serif;
+  }
 }

@@ -4,15 +4,21 @@ import {
   useGetCategoriesQuery,
   useGetProductsQuery,
 } from "@/features/products/productsApi";
+import Hero from "@/components/common/home/Hero";
+import Band from "@/components/common/home/Band";
 
 const steps = [
   { title: "Seç", text: "Menyudan istədiyin yeməyi tap və səbətə at." },
-  { title: "Sifariş ver", text: "Ünvanını yaz, ödəniş üsulunu seç və təsdiqlə." },
+  {
+    title: "Sifariş ver",
+    text: "Ünvanını yaz, ödəniş üsulunu seç və təsdiqlə.",
+  },
   { title: "İzlə", text: "Sifarişinin statusunu canlı olaraq izlə." },
 ];
 
 export default function Home() {
-  const { data: categories, isLoading: categoriesLoading } = useGetCategoriesQuery();
+  const { data: categories, isLoading: categoriesLoading } =
+    useGetCategoriesQuery();
   const {
     data: featured,
     isLoading: featuredLoading,
@@ -21,54 +27,46 @@ export default function Home() {
   } = useGetProductsQuery({ featured: true, limit: 8 });
 
   return (
-    <div className="space-y-12">
-      {/* Hero */}
-      <section className="rounded-2xl bg-gradient-to-br from-orange-500 to-orange-400 px-6 py-12 text-white md:px-12 md:py-16">
-        <h1 className="max-w-xl text-3xl font-bold md:text-5xl">
-          Dadlı yeməklər, qapına qədər
-        </h1>
-        <p className="mt-3 max-w-lg text-orange-50 md:text-lg">
-          BiteGo ilə sevdiyin yeməyi bir neçə kliklə sifariş et və statusunu canlı izlə.
-        </p>
-        <Link
-          to="/menu"
-          className="mt-6 inline-block rounded-md bg-white px-6 py-3 font-semibold text-orange-600"
-        >
-          Menyuya bax
-        </Link>
-      </section>
+    <>
+      <Hero />
+      <Band />
 
       {/* Kateqoriyalar */}
-      <section>
-        <h2 className="mb-4 text-2xl font-bold">Kateqoriyalar</h2>
+      <section className="mx-auto max-w-7xl px-6 py-14">
+        <p className="mb-8 text-xs font-bold uppercase tracking-widest text-fire">
+          Nə yemək istəyirsiniz?
+        </p>
 
         {categoriesLoading && (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-3 gap-6 md:grid-cols-6">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-28 animate-pulse rounded-xl bg-gray-200" />
+              <div key={i} className="text-center">
+                <div className="mx-auto size-24 animate-pulse rounded-full bg-cream md:size-28" />
+                <div className="mx-auto mt-3 h-3 w-16 animate-pulse rounded bg-cream" />
+              </div>
             ))}
           </div>
         )}
 
         {categories && categories.length > 0 && (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-3 gap-6 md:grid-cols-6">
             {categories.map((c) => (
               <Link
                 key={c.id}
                 to={`/menu?category=${c.slug}`}
-                className="group relative h-28 overflow-hidden rounded-xl bg-gray-200"
+                className="group text-center"
               >
-                {c.imageUrl && (
-                  <img
-                    src={c.imageUrl}
-                    alt={c.name}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition group-hover:scale-105"
-                  />
-                )}
-                <span className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-3 font-semibold text-white">
-                  {c.name}
-                </span>
+                <div className="mx-auto size-24 overflow-hidden rounded-full bg-cream ring-2 ring-cream transition group-hover:ring-fire md:size-28">
+                  {c.imageUrl && (
+                    <img
+                      src={c.imageUrl}
+                      alt={c.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition group-hover:scale-105"
+                    />
+                  )}
+                </div>
+                <p className="mt-3 text-sm font-bold text-russet">{c.name}</p>
               </Link>
             ))}
           </div>
@@ -76,18 +74,23 @@ export default function Home() {
       </section>
 
       {/* Məşhur yeməklər */}
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Məşhur yeməklər</h2>
-          <Link to="/menu" className="text-sm text-orange-600 underline">
-            Hamısına bax
+      <section className="mx-auto max-w-7xl px-6 pb-14">
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-fire">
+          Ən çox sevilənlər
+        </p>
+        <div className="mb-8 flex items-end justify-between">
+          <h2 className="font-display text-4xl text-russet md:text-5xl">
+            İlk tikədən sevgi.
+          </h2>
+          <Link to="/menu" className="text-sm font-bold text-fire">
+            Hamısına bax ↗
           </Link>
         </div>
 
         {featuredLoading && (
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-60 animate-pulse rounded-xl bg-gray-200" />
+              <div key={i} className="h-72 animate-pulse rounded-2xl bg-cream" />
             ))}
           </div>
         )}
@@ -102,7 +105,9 @@ export default function Home() {
         )}
 
         {featured && featured.items.length === 0 && (
-          <p className="py-8 text-center text-gray-500">Hələ seçilmiş məhsul yoxdur.</p>
+          <p className="py-8 text-center text-russet/70">
+            Hələ seçilmiş məhsul yoxdur.
+          </p>
         )}
 
         {featured && featured.items.length > 0 && (
@@ -115,20 +120,27 @@ export default function Home() {
       </section>
 
       {/* Necə işləyir */}
-      <section>
-        <h2 className="mb-4 text-2xl font-bold">Necə işləyir?</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+      <section className="mx-auto max-w-7xl px-6 pb-20">
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-fire">
+          Mətbəximizdən sizə
+        </p>
+        <h2 className="mb-8 font-display text-4xl text-russet md:text-5xl">
+          Hər şey çox asandır.
+        </h2>
+        <div className="grid gap-8 md:grid-cols-3">
           {steps.map((s, i) => (
-            <div key={s.title} className="rounded-xl border bg-white p-5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 font-bold text-white">
-                {i + 1}
+            <div key={s.title} className="flex items-start gap-4">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-cream text-sm font-bold text-russet">
+                0{i + 1}
               </span>
-              <h3 className="mt-3 font-semibold">{s.title}</h3>
-              <p className="mt-1 text-sm text-gray-600">{s.text}</p>
+              <div>
+                <h3 className="font-bold text-russet">{s.title}</h3>
+                <p className="mt-1 text-sm text-russet/80">{s.text}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
-    </div>
+    </>
   );
 }

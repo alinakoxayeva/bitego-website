@@ -68,7 +68,7 @@ export default function Register() {
   return (
     <div className="mx-auto mt-10 w-full max-w-sm rounded-2xl border bg-white p-6 shadow-sm">
       <h1 className="text-2xl font-bold">Qeydiyyat</h1>
-      <p className="mb-6 mt-1 text-sm text-gray-500">BiteGo-da hesab yaradın</p>
+      <p className="mb-6 mt-1 text-sm text-gray-500">Savor-da hesab yaradın</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         {fields.map((f) => (
