@@ -23,20 +23,20 @@ export default function Home() {
   return (
     <div className="space-y-12">
       {/* Hero */}
-      <section className="rounded-2xl bg-gradient-to-br from-orange-500 to-orange-400 px-6 py-12 text-white md:px-12 md:py-16">
-        <h1 className="max-w-xl text-3xl font-bold md:text-5xl">
-          Dadlı yeməklər, qapına qədər
-        </h1>
-        <p className="mt-3 max-w-lg text-orange-50 md:text-lg">
-          BiteGo ilə sevdiyin yeməyi bir neçə kliklə sifariş et və statusunu canlı izlə.
-        </p>
-        <Link
-          to="/menu"
-          className="mt-6 inline-block rounded-md bg-white px-6 py-3 font-semibold text-orange-600"
-        >
-          Menyuya bax
-        </Link>
-      </section>
+      <section className="rounded-3xl bg-primary px-6 py-12 text-primary-foreground md:px-12 md:py-16 bg-amber-500">
+  <h1 className="max-w-xl text-3xl font-bold md:text-5xl">
+    Dadlı yeməklər, qapına qədər
+  </h1>
+  <p className="mt-3 max-w-lg text-cream md:text-lg">
+    BiteGo ilə sevdiyin yeməyi bir neçə kliklə sifariş et və statusunu canlı izlə.
+  </p>
+  <Link
+    to="/menu"
+    className="mt-6 inline-block rounded-full bg-saffron px-6 py-3 font-semibold text-foreground transition hover:brightness-95"
+  >
+    Menyuya bax
+  </Link>
+</section>
 
       {/* Kateqoriyalar */}
       <section>
@@ -45,7 +45,7 @@ export default function Home() {
         {categoriesLoading && (
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-28 animate-pulse rounded-xl bg-gray-200" />
+              <div key={i} className="h-28 animate-pulse rounded-xl bg-gray-200 drop-shadow-2xl" />
             ))}
           </div>
         )}
@@ -66,7 +66,7 @@ export default function Home() {
                     className="h-full w-full object-cover transition group-hover:scale-105"
                   />
                 )}
-                <span className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-3 font-semibold text-white">
+                <span className="absolute inset-0 flex items-end bg-linear-to-t from-black/60 to-transparent p-3 font-semibold text-white">
                   {c.name}
                 </span>
               </Link>
@@ -87,7 +87,7 @@ export default function Home() {
         {featuredLoading && (
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-60 animate-pulse rounded-xl bg-gray-200" />
+              <div key={i} className="h-60 animate-pulse rounded-xl bg-gray-200 drop-shadow-gray-800" />
             ))}
           </div>
         )}

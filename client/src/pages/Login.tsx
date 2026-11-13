@@ -51,7 +51,7 @@ export default function Login() {
   return (
     <div className="mx-auto mt-10 w-full max-w-sm rounded-2xl border bg-white p-6 shadow-sm">
       <h1 className="text-2xl font-bold">Daxil ol</h1>
-      <p className="mb-6 mt-1 text-sm text-gray-500">BiteGo hesabınıza daxil olun</p>
+      <p className="mb-6 mt-1 text-sm text-gray-500">Savor hesabınıza daxil olun</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         <div>

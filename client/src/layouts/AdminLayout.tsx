@@ -38,7 +38,7 @@ export default function AdminLayout() {
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <p className="mb-6 text-xl font-bold text-orange-500">BiteGo Admin</p>
+        <p className="mb-6 text-xl font-bold text-orange-500">Savor Admin</p>
         <nav className="flex flex-col gap-1">
           {links.map((l) => (
             <NavLink

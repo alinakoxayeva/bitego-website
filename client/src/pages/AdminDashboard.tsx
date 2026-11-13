@@ -30,12 +30,12 @@ import { formatDate, formatPrice } from "@/lib/format";
 const POLL = 30000; // 30 saniyədən bir yenilənir
 
 const STATUS_CHART_COLORS: Record<OrderStatus, string> = {
-  PENDING: "#eab308",
-  CONFIRMED: "#3b82f6",
-  PREPARING: "#f97316",
-  ON_THE_WAY: "#a855f7",
-  DELIVERED: "#22c55e",
-  CANCELLED: "#ef4444",
+  PENDING: "#F5C065",
+  CONFIRMED: "#A9776F",
+  PREPARING: "#C9852B",
+  ON_THE_WAY: "#6E433D",
+  DELIVERED: "#31603D",
+  CANCELLED: "#D23D2D",
 };
 
 function StatCard({ label, value, hint }: { label: string; value: string; hint?: string }) {

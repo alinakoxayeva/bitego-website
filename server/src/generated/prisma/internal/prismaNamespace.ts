@@ -129,13 +129,13 @@ export const AnyNull = runtime.AnyNull
 
 
 type SelectAndInclude = {
-  select: any
-  include: any
+  select: unknown
+  include: unknown
 }
 
 type SelectAndOmit = {
-  select: any
-  omit: any
+  select: unknown
+  omit: unknown
 }
 
 /**
