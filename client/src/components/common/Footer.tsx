@@ -23,7 +23,7 @@ export default function Footer() {
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-saffron">Come say hello</p>
           <p className="text-sm">Baku, Azerbaijan</p>
           <p className="text-sm">Every day, 11 am – 10 pm</p>
-          <p className="mt-4 text-sm">hello@savor.kitchen</p>
+          <p className="mt-4 text-sm">hello@savor.az</p>
         </div>
       </div>
 
