@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
+import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import {
   useCancelOrderMutation,
@@ -26,13 +27,16 @@ export default function OrderDetail() {
     if (order && isFinalStatus(order.status)) setPollingInterval(0);
   }, [order]);
 
-  if (isLoading) return <div className="h-60 animate-pulse rounded-xl bg-gray-200" />;
+  if (isLoading)
+    return (
+      <div className="mx-auto my-12 h-60 max-w-3xl animate-pulse rounded-2xl bg-cream" />
+    );
 
   if (isError || !order) {
     return (
-      <div className="py-12 text-center">
+      <div className="py-20 text-center text-russet">
         <p>Sifariş tapılmadı.</p>
-        <Link to="/orders" className="underline">
+        <Link to="/orders" className="mt-2 inline-block font-bold text-fire underline">
           Sifarişlərimə qayıt
         </Link>
       </div>
@@ -51,73 +55,89 @@ export default function OrderDetail() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
-      <Link to="/orders" className="text-sm text-gray-500 underline">
-        ← Sifarişlərim
-      </Link>
-
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Sifariş #{order.orderNumber}</h1>
-          <p className="text-sm text-gray-500">{formatDate(order.createdAt)}</p>
+    <>
+      <section className="bg-cream">
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <Link
+            to="/orders"
+            className="mb-4 inline-flex items-center gap-2 text-sm font-bold text-fire"
+          >
+            <ArrowLeft size={14} /> Sifarişlərim
+          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-russet/70">
+                {formatDate(order.createdAt)}
+              </p>
+              <h1 className="font-display text-4xl text-russet md:text-5xl">
+                Sifariş #{order.orderNumber}
+              </h1>
+            </div>
+            <StatusBadge status={order.status} />
+          </div>
         </div>
-        <StatusBadge status={order.status} />
+      </section>
+
+      <div className="mx-auto grid max-w-7xl gap-6 px-6 py-10 lg:grid-cols-[1fr_380px]">
+        <div className="space-y-6">
+          <section className="rounded-2xl bg-cream p-6">
+            <OrderTimeline status={order.status} />
+            {order.status === "CANCELLED" && order.cancelReason && (
+              <p className="mt-4 text-sm text-russet">Səbəb: {order.cancelReason}</p>
+            )}
+          </section>
+
+          <section className="rounded-2xl border border-cream bg-paper p-6">
+            <h2 className="mb-4 font-display text-2xl text-russet">Məhsullar</h2>
+            <ul className="space-y-2 text-sm text-russet">
+              {order.items.map((i) => (
+                <li key={i.id} className="flex justify-between gap-3">
+                  <span>
+                    {i.quantity} × {i.nameSnapshot}
+                  </span>
+                  <span>{formatPrice(Number(i.priceSnapshot) * i.quantity)}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 space-y-2 border-t border-cream pt-4 text-sm text-russet">
+              <div className="flex justify-between">
+                <span>Məhsullar</span>
+                <span>{formatPrice(order.subtotal)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Çatdırılma</span>
+                <span>{formatPrice(order.deliveryFee)}</span>
+              </div>
+              <div className="flex items-baseline justify-between pt-2">
+                <span className="font-display text-xl">Cəmi</span>
+                <span className="font-display text-2xl">{formatPrice(order.total)}</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside className="h-fit space-y-6">
+          <section className="rounded-2xl border border-cream bg-paper p-6 text-sm text-russet">
+            <h2 className="mb-3 font-display text-2xl">Çatdırılma</h2>
+            <p>{order.address}</p>
+            <p className="mt-1 text-russet/80">{order.phone}</p>
+            {order.note && <p className="mt-3 text-russet/80">Qeyd: {order.note}</p>}
+            <p className="mt-3 border-t border-cream pt-3">
+              Ödəniş: {order.paymentMethod === "CASH" ? "Nağd" : "Kart"}
+            </p>
+          </section>
+
+          {order.status === "PENDING" && (
+            <button
+              onClick={handleCancel}
+              disabled={isCancelling}
+              className="w-full rounded-md border border-fire py-3 text-sm font-bold text-fire transition hover:bg-fire hover:text-white disabled:opacity-50"
+            >
+              {isCancelling ? "Gözləyin..." : "Sifarişi ləğv et"}
+            </button>
+          )}
+        </aside>
       </div>
-
-      <section className="rounded-xl border bg-white p-4">
-        <OrderTimeline status={order.status} />
-        {order.status === "CANCELLED" && order.cancelReason && (
-          <p className="mt-3 text-sm text-gray-600">Səbəb: {order.cancelReason}</p>
-        )}
-      </section>
-
-      <section className="rounded-xl border bg-white p-4">
-        <h2 className="mb-3 font-semibold">Məhsullar</h2>
-        <ul className="space-y-2 text-sm">
-          {order.items.map((i) => (
-            <li key={i.id} className="flex justify-between">
-              <span>
-                {i.nameSnapshot} × {i.quantity}
-              </span>
-              <span>{formatPrice(Number(i.priceSnapshot) * i.quantity)}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-3 space-y-1 border-t pt-3 text-sm">
-          <div className="flex justify-between">
-            <span>Məhsullar</span>
-            <span>{formatPrice(order.subtotal)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Çatdırılma</span>
-            <span>{formatPrice(order.deliveryFee)}</span>
-          </div>
-          <div className="flex justify-between text-base font-bold">
-            <span>Cəmi</span>
-            <span>{formatPrice(order.total)}</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="rounded-xl border bg-white p-4 text-sm">
-        <h2 className="mb-2 font-semibold">Çatdırılma</h2>
-        <p>{order.address}</p>
-        <p className="text-gray-600">{order.phone}</p>
-        {order.note && <p className="mt-2 text-gray-600">Qeyd: {order.note}</p>}
-        <p className="mt-2 text-gray-600">
-          Ödəniş: {order.paymentMethod === "CASH" ? "Nağd" : "Kart"}
-        </p>
-      </section>
-
-      {order.status === "PENDING" && (
-        <button
-          onClick={handleCancel}
-          disabled={isCancelling}
-          className="rounded-md border border-red-300 px-4 py-2 text-red-600 disabled:opacity-50"
-        >
-          {isCancelling ? "Gözləyin..." : "Sifarişi ləğv et"}
-        </button>
-      )}
-    </div>
+    </>
   );
 }
